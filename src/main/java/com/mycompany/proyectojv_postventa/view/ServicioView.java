@@ -5,13 +5,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class UsuarioView extends JFrame {
+public class ServicioView extends JFrame {
     private JTable tabla;
     private JButton btnAgregar, btnEditar, btnEliminar, btnRefrescar, btnCerrar;
 
-    public UsuarioView() {
-        setTitle("Usuarios — Sistema ITC");
-        setSize(920, 520);
+    public ServicioView() {
+        setTitle("Servicios — Sistema ITC");
+        setSize(980, 540);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(12,12));
@@ -19,19 +19,19 @@ public class UsuarioView extends JFrame {
         // Top
         JPanel top = new JPanel(new BorderLayout());
         top.setBackground(new Color(34,49,63));
-        JLabel title = new JLabel("Gestión de Usuarios");
+        JLabel title = new JLabel("Gestión de Servicios");
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Segoe UI", Font.BOLD, 18));
         title.setBorder(BorderFactory.createEmptyBorder(12,16,12,12));
         top.add(title, BorderLayout.WEST);
         add(top, BorderLayout.NORTH);
 
-        // Tabla central
+        // Tabla
         tabla = new JTable();
         tabla.setFillsViewportHeight(true);
         add(new JScrollPane(tabla), BorderLayout.CENTER);
 
-        // Bottom - botones
+        // Botones
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 12));
         btnRefrescar = stylishButton("Refrescar", new Color(149,165,166));
         btnAgregar = stylishButton("Agregar", new Color(52,152,219));

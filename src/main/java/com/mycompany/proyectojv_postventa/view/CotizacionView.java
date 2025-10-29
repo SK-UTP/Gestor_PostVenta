@@ -5,44 +5,42 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class UsuarioView extends JFrame {
+public class CotizacionView extends JFrame {
     private JTable tabla;
-    private JButton btnAgregar, btnEditar, btnEliminar, btnRefrescar, btnCerrar;
+    private JButton btnAgregar, btnEditar, btnEliminar, btnVerDetalle, btnRefrescar, btnCerrar;
 
-    public UsuarioView() {
-        setTitle("Usuarios — Sistema ITC");
-        setSize(920, 520);
+    public CotizacionView() {
+        setTitle("Cotizaciones — Sistema ITC");
+        setSize(980, 520);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(12,12));
 
-        // Top
         JPanel top = new JPanel(new BorderLayout());
         top.setBackground(new Color(34,49,63));
-        JLabel title = new JLabel("Gestión de Usuarios");
+        JLabel title = new JLabel("Gestión de Cotizaciones");
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Segoe UI", Font.BOLD, 18));
         title.setBorder(BorderFactory.createEmptyBorder(12,16,12,12));
         top.add(title, BorderLayout.WEST);
         add(top, BorderLayout.NORTH);
 
-        // Tabla central
         tabla = new JTable();
-        tabla.setFillsViewportHeight(true);
         add(new JScrollPane(tabla), BorderLayout.CENTER);
 
-        // Bottom - botones
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 12));
         btnRefrescar = stylishButton("Refrescar", new Color(149,165,166));
         btnAgregar = stylishButton("Agregar", new Color(52,152,219));
         btnEditar = stylishButton("Editar", new Color(46,204,113));
         btnEliminar = stylishButton("Eliminar", new Color(231,76,60));
+        btnVerDetalle = stylishButton("Ver Detalle", new Color(52,73,94));
         btnCerrar = stylishButton("Cerrar", new Color(109,110,114));
 
         bottom.add(btnRefrescar);
         bottom.add(btnAgregar);
         bottom.add(btnEditar);
         bottom.add(btnEliminar);
+        bottom.add(btnVerDetalle);
         bottom.add(btnCerrar);
         add(bottom, BorderLayout.SOUTH);
 
@@ -59,7 +57,6 @@ public class UsuarioView extends JFrame {
         return b;
     }
 
-    // API para controller
     public JTable getTabla() { return tabla; }
     public void setTableModel(DefaultTableModel model) { tabla.setModel(model); }
 
@@ -67,5 +64,6 @@ public class UsuarioView extends JFrame {
     public void addAgregarListener(ActionListener l) { btnAgregar.addActionListener(l); }
     public void addEditarListener(ActionListener l) { btnEditar.addActionListener(l); }
     public void addEliminarListener(ActionListener l) { btnEliminar.addActionListener(l); }
+    public void addVerDetalleListener(ActionListener l) { btnVerDetalle.addActionListener(l); }
     public void addCerrarListener(ActionListener l) { btnCerrar.addActionListener(l); }
 }
