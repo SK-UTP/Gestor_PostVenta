@@ -1,6 +1,6 @@
 package com.mycompany.proyectojv_postventa.controller;
 
-import com.mycompany.proyectojv_postventa.model.UsuarioModel;
+import com.mycompany.proyectojv_postventa.model.Usuario;
 import com.mycompany.proyectojv_postventa.view.UsuarioView;
 
 import javax.swing.*;
@@ -25,12 +25,12 @@ public class UsuarioController {
     }
 
     private void cargarTabla() {
-        List<UsuarioModel> lista = UsuarioModel.obtenerTodos();
+        List<Usuario> lista = Usuario.obtenerTodos();
         String[] cols = {"ID","Nombre","Usuario","PasswordHash","ID_Rol","Estado"};
         DefaultTableModel model = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int row, int column) { return false; }
         };
-        for (UsuarioModel u : lista) {
+        for (Usuario u : lista) {
             model.addRow(new Object[]{
                     u.getId_usuario(), u.getNombre(), u.getUsuario(),
                     u.getPassword_hash(), u.getId_rol(), u.getEstado()
@@ -43,7 +43,7 @@ public class UsuarioController {
         UsuarioFormDialog dlg = new UsuarioFormDialog(null);
         dlg.setVisible(true);
         if (!dlg.isConfirmed()) return;
-        UsuarioModel u = new UsuarioModel(0, dlg.getNombre(), dlg.getUsuario(), dlg.getPassword(), dlg.getIdRol(), dlg.getEstado());
+        Usuario u = new Usuario(0, dlg.getNombre(), dlg.getUsuario(), dlg.getPassword(), dlg.getIdRol(), dlg.getEstado());
         if (u.guardar()) {
             JOptionPane.showMessageDialog(view, "Usuario agregado.");
             cargarTabla();
@@ -65,7 +65,7 @@ public class UsuarioController {
         dlg.setVisible(true);
         if (!dlg.isConfirmed()) return;
 
-        UsuarioModel u = new UsuarioModel(id, dlg.getNombre(), dlg.getUsuario(), dlg.getPassword(), dlg.getIdRol(), dlg.getEstado());
+        Usuario u = new Usuario(id, dlg.getNombre(), dlg.getUsuario(), dlg.getPassword(), dlg.getIdRol(), dlg.getEstado());
         if (u.actualizar()) {
             JOptionPane.showMessageDialog(view, "Usuario actualizado.");
             cargarTabla();
@@ -78,7 +78,7 @@ public class UsuarioController {
         int id = (int) view.getTabla().getValueAt(fila, 0);
         int ok = JOptionPane.showConfirmDialog(view, "Eliminar usuario ID " + id + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (ok != JOptionPane.YES_OPTION) return;
-        UsuarioModel u = new UsuarioModel();
+        Usuario u = new Usuario();
         u.setId_usuario(id);
         if (u.eliminar()) {
             JOptionPane.showMessageDialog(view, "Usuario eliminado.");
@@ -86,7 +86,7 @@ public class UsuarioController {
         } else JOptionPane.showMessageDialog(view, "Error al eliminar usuario.");
     }
 
-    // Diálogo de formulario para agregar/editar usuario
+    // Diálogo de formulario (igual que tenías)
     private static class UsuarioFormDialog extends JDialog {
         private JTextField txtNombre, txtUsuario, txtPassword;
         private JComboBox<Integer> cbIdRol;
