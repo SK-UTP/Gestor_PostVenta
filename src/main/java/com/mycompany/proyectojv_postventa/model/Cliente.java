@@ -4,6 +4,10 @@ import com.mycompany.proyectojv_postventa.conexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Cliente {
     private int id_cliente;
@@ -106,4 +110,32 @@ public class Cliente {
         } catch (SQLException e) { e.printStackTrace(); }
         return false;
     }
+    
+    // dentro de la clase Cliente (asegúrate del package correcto y de tener conexion importada)
+public static Cliente obtenerPorId(int id) {
+    String sql = "SELECT id_cliente, nombre, empresa, telefono, correo, estado, created_at, updated_at FROM clientes WHERE id_cliente = ?";
+    try (Connection conn = conexion.getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+        pst.setInt(1, id);
+        try (ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId_cliente(rs.getInt("id_cliente"));
+                c.setNombre(rs.getString("nombre"));
+                c.setEmpresa(rs.getString("empresa"));
+                c.setTelefono(rs.getString("telefono"));
+                c.setCorreo(rs.getString("correo"));
+                c.setEstado(rs.getString("estado"));
+                // si tu clase Cliente tiene campos createdAt / updatedAt, parsearlos:
+                // c.setCreatedAt(rs.getTimestamp("created_at"));
+                // c.setUpdatedAt(rs.getTimestamp("updated_at"));
+                return c;
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
 }
